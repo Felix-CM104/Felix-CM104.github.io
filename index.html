@@ -1,0 +1,268 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Félix Cabrera Martín · Desarrollador DAM</title>
+  <meta name="description" content="Portfolio de Félix Cabrera Martín, estudiante de 2º de DAM.">
+  <style>
+    :root {
+      --rosa: #e47bbf;
+      --morado: #7b5cff;
+      --oscuro: #14121f;
+      --tarjeta: #1d1a2c;
+      --borde: #2c2842;
+      --texto: #ecebf5;
+      --gris: #a4a1b8;
+      --degradado: linear-gradient(90deg, var(--rosa), var(--morado));
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+    body {
+      font-family: system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+      background: var(--oscuro); color: var(--texto); line-height: 1.6;
+    }
+    a { color: inherit; text-decoration: none; }
+    .contenedor { width: min(1100px, 90%); margin: 0 auto; }
+
+    /* Navegación */
+    nav {
+      position: sticky; top: 0; z-index: 10;
+      background: rgba(20, 18, 31, .85); backdrop-filter: blur(8px);
+      border-bottom: 1px solid var(--borde);
+    }
+    nav .contenedor { display: flex; justify-content: space-between; align-items: center; padding: 1rem 0; }
+    .marca { font-weight: 800; font-size: 1.2rem; }
+    .marca span { background: var(--degradado); -webkit-background-clip: text; background-clip: text; color: transparent; }
+    nav ul { display: flex; gap: 1.5rem; list-style: none; }
+    nav ul a { color: var(--gris); font-size: .95rem; transition: color .2s; }
+    nav ul a:hover { color: var(--texto); }
+
+    /* Portada */
+    .hero { padding: 7rem 0 5rem; position: relative; overflow: hidden; }
+    .hero::before {
+      content: ""; position: absolute; width: 500px; height: 500px; right: -150px; top: -100px;
+      background: radial-gradient(circle, rgba(123, 92, 255, .35), transparent 65%); z-index: -1;
+    }
+    .saludo { color: var(--rosa); font-weight: 600; margin-bottom: .5rem; }
+    .hero h1 { font-size: clamp(2.4rem, 6vw, 4rem); line-height: 1.1; }
+    .hero h1 span { background: var(--degradado); -webkit-background-clip: text; background-clip: text; color: transparent; }
+    .hero p.lead { color: var(--gris); font-size: 1.15rem; max-width: 600px; margin: 1.2rem 0 2rem; }
+    .botones { display: flex; gap: 1rem; flex-wrap: wrap; }
+    .btn {
+      display: inline-block; padding: .8rem 1.5rem; border-radius: 10px; font-weight: 600;
+      transition: transform .2s, box-shadow .2s;
+    }
+    .btn:hover { transform: translateY(-2px); }
+    .btn-principal { background: var(--degradado); color: #fff; box-shadow: 0 8px 25px rgba(123, 92, 255, .3); }
+    .btn-borde { border: 1px solid var(--borde); color: var(--texto); }
+
+    /* Secciones */
+    section { padding: 4.5rem 0; }
+    h2 { font-size: 2rem; margin-bottom: 2rem; }
+    h2::after { content: ""; display: block; width: 60px; height: 4px; border-radius: 2px; background: var(--degradado); margin-top: .5rem; }
+
+    .sobre-mi { display: grid; grid-template-columns: 1.4fr 1fr; gap: 2.5rem; align-items: start; }
+    .sobre-mi p { color: var(--gris); margin-bottom: 1rem; }
+    .datos { background: var(--tarjeta); border: 1px solid var(--borde); border-radius: 14px; padding: 1.5rem; list-style: none; }
+    .datos li { padding: .5rem 0; border-bottom: 1px solid var(--borde); display: flex; gap: .7rem; }
+    .datos li:last-child { border-bottom: none; }
+
+    .tecnologias { display: flex; flex-wrap: wrap; gap: .7rem; }
+    .chip {
+      background: var(--tarjeta); border: 1px solid var(--borde); border-radius: 999px;
+      padding: .5rem 1rem; font-size: .95rem;
+    }
+
+    /* Proyectos */
+    .proyectos { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 1.5rem; }
+    .proyecto {
+      background: var(--tarjeta); border: 1px solid var(--borde); border-radius: 16px; padding: 1.6rem;
+      display: flex; flex-direction: column; gap: .8rem; transition: transform .25s, border-color .25s;
+    }
+    .proyecto:hover { transform: translateY(-5px); border-color: var(--morado); }
+    .proyecto .icono {
+      font-size: 2.2rem; width: 64px; height: 64px; border-radius: 14px; display: grid; place-items: center;
+      background: linear-gradient(135deg, rgba(228, 123, 191, .2), rgba(123, 92, 255, .2));
+    }
+    .proyecto .asignatura { color: var(--rosa); font-size: .8rem; font-weight: 600; text-transform: uppercase; letter-spacing: .5px; }
+    .proyecto p { color: var(--gris); font-size: .95rem; }
+    .proyecto ul { color: var(--gris); font-size: .9rem; padding-left: 1.1rem; }
+    .etiquetas { display: flex; flex-wrap: wrap; gap: .4rem; margin-top: auto; }
+    .etiquetas span { font-size: .75rem; padding: .25rem .6rem; border-radius: 6px; background: rgba(123, 92, 255, .15); color: #c4b8ff; }
+    .enlaces { display: flex; gap: .8rem; }
+    .enlaces a { font-size: .9rem; font-weight: 600; padding: .5rem .9rem; border-radius: 8px; border: 1px solid var(--borde); }
+    .enlaces a.demo { background: var(--degradado); border: none; color: #fff; }
+
+    /* Contacto */
+    .contacto { text-align: center; }
+    .contacto h2::after { margin: .5rem auto 0; }
+    .contacto p { color: var(--gris); max-width: 520px; margin: 0 auto 2rem; }
+    .tarjetas-contacto { display: flex; justify-content: center; flex-wrap: wrap; gap: 1rem; }
+    .tarjeta-contacto {
+      background: var(--tarjeta); border: 1px solid var(--borde); border-radius: 14px;
+      padding: 1.2rem 1.5rem; min-width: 240px; transition: border-color .2s;
+    }
+    .tarjeta-contacto:hover { border-color: var(--rosa); }
+    .tarjeta-contacto small { display: block; color: var(--gris); font-size: .8rem; }
+    .tarjeta-contacto strong { font-size: 1rem; word-break: break-all; }
+
+    footer { text-align: center; color: var(--gris); font-size: .85rem; padding: 2rem 0; border-top: 1px solid var(--borde); }
+
+    @media (max-width: 720px) {
+      nav ul { gap: .9rem; }
+      nav ul li:first-child { display: none; }
+      .sobre-mi { grid-template-columns: 1fr; }
+      .hero { padding: 4rem 0 3rem; }
+    }
+  </style>
+</head>
+<body>
+  <nav>
+    <div class="contenedor">
+      <a href="#" class="marca">Félix<span>.dev</span></a>
+      <ul>
+        <li><a href="#sobre-mi">Sobre mí</a></li>
+        <li><a href="#proyectos">Proyectos</a></li>
+        <li><a href="#contacto">Contacto</a></li>
+      </ul>
+    </div>
+  </nav>
+
+  <header class="hero">
+    <div class="contenedor">
+      <p class="saludo">👋 Hola, soy</p>
+      <h1>Félix Cabrera Martín<br><span>Desarrollador multiplataforma</span></h1>
+      <p class="lead">
+        Estudiante de 2º de DAM. Me gusta crear aplicaciones útiles con Java, Kotlin y tecnologías web,
+        y busco prácticas para seguir aprendiendo en un equipo real.
+      </p>
+      <div class="botones">
+        <a href="#proyectos" class="btn btn-principal">Ver proyectos</a>
+        <a href="#contacto" class="btn btn-borde">Contactar</a>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    <section id="sobre-mi">
+      <div class="contenedor sobre-mi">
+        <div>
+          <h2>Sobre mí</h2>
+          <p>
+            Estoy terminando el ciclo de Desarrollo de Aplicaciones Multiplataforma. Durante el ciclo he trabajado
+            con programación orientada a objetos, bases de datos, programación concurrente y en red, y desarrollo
+            de interfaces web y de escritorio.
+          </p>
+          <p>
+            Disfruto entendiendo cómo funcionan las cosas por dentro y escribiendo código claro y probado.
+            Estoy abierto a prácticas y a mi primera oportunidad como desarrollador.
+          </p>
+        </div>
+        <ul class="datos">
+          <li>🎓 <span>2º de DAM</span></li>
+          <li>📍 <span>Orellana la Vieja, España</span></li>
+          <li>🗣️ <span>Español nativo · Inglés B1</span></li>
+          <li>💼 <span>Disponible para prácticas</span></li>
+        </ul>
+      </div>
+    </section>
+
+    <section id="tecnologias">
+      <div class="contenedor">
+        <h2>Tecnologías</h2>
+        <div class="tecnologias">
+          <span class="chip">☕ Java</span>
+          <span class="chip">🟣 Kotlin</span>
+          <span class="chip">🤖 Android Studio</span>
+          <span class="chip">🐬 MySQL</span>
+          <span class="chip">🌐 HTML</span>
+          <span class="chip">🎨 CSS</span>
+          <span class="chip">⚡ JavaScript</span>
+          <span class="chip">🔀 Git y GitHub</span>
+          <span class="chip">💡 IntelliJ IDEA</span>
+        </div>
+      </div>
+    </section>
+
+    <section id="proyectos">
+      <div class="contenedor">
+        <h2>Proyectos</h2>
+        <div class="proyectos">
+
+          <article class="proyecto">
+            <div class="icono">📚</div>
+            <span class="asignatura">Programación</span>
+            <h3>Gestión de Biblioteca</h3>
+            <p>Aplicación de consola para gestionar libros, socios y préstamos, con persistencia en ficheros CSV.</p>
+            <ul>
+              <li>Límite de préstamos y cálculo de multas por retraso</li>
+              <li>Búsqueda por título o autor con Streams</li>
+              <li>Pruebas automáticas de la lógica de negocio</li>
+            </ul>
+            <div class="etiquetas"><span>Java</span><span>POO</span><span>Colecciones</span><span>Ficheros</span></div>
+            <div class="enlaces">
+              <a href="https://github.com/Felix-CM104/gestion-biblioteca" target="_blank" rel="noopener">Código ↗</a>
+            </div>
+          </article>
+
+          <article class="proyecto">
+            <div class="icono">💬</div>
+            <span class="asignatura">Programación de Servicios y Procesos</span>
+            <h3>Chat con Sockets</h3>
+            <p>Chat cliente-servidor por TCP con un servidor multihilo que atiende a varios usuarios a la vez.</p>
+            <ul>
+              <li>Mensajes públicos y privados, cambio de apodo</li>
+              <li>Un hilo por cliente con ExecutorService</li>
+              <li>Estructuras seguras para concurrencia</li>
+            </ul>
+            <div class="etiquetas"><span>Java</span><span>Sockets</span><span>Hilos</span><span>Concurrencia</span></div>
+            <div class="enlaces">
+              <a href="https://github.com/Felix-CM104/chat-sockets" target="_blank" rel="noopener">Código ↗</a>
+            </div>
+          </article>
+
+          <article class="proyecto">
+            <div class="icono">🛒</div>
+            <span class="asignatura">Lenguajes de Marcas · Interfaces</span>
+            <h3>TecnoShop</h3>
+            <p>Tienda online con catálogo, filtros, carrito persistente y formulario de pedido validado.</p>
+            <ul>
+              <li>Carrito con control de stock, IVA y envío</li>
+              <li>Guardado en localStorage</li>
+              <li>Diseño adaptable a móvil</li>
+            </ul>
+            <div class="etiquetas"><span>HTML</span><span>CSS</span><span>JavaScript</span></div>
+            <div class="enlaces">
+              <a href="tienda/" class="demo">Ver demo</a>
+              <a href="https://github.com/Felix-CM104/tienda-web" target="_blank" rel="noopener">Código ↗</a>
+            </div>
+          </article>
+
+        </div>
+      </div>
+    </section>
+
+    <section id="contacto" class="contacto">
+      <div class="contenedor">
+        <h2>Contacto</h2>
+        <p>¿Tienes una oferta de prácticas o quieres comentar algún proyecto? Escríbeme o llámame.</p>
+        <div class="tarjetas-contacto">
+          <a class="tarjeta-contacto" href="mailto:felixcabreramartin@gmail.com">
+            <small>📧 Email</small><strong>felixcabreramartin@gmail.com</strong>
+          </a>
+          <a class="tarjeta-contacto" href="tel:+34687956180">
+            <small>📞 Teléfono</small><strong>+34 687 95 61 80</strong>
+          </a>
+          <a class="tarjeta-contacto" href="https://github.com/Felix-CM104" target="_blank" rel="noopener">
+            <small>🐙 GitHub</small><strong>Felix-CM104</strong>
+          </a>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer>© <span id="anio">2026</span> Félix Cabrera Martín</footer>
+  <script>document.getElementById("anio").textContent = new Date().getFullYear();</script>
+</body>
+</html>
